@@ -1,0 +1,15 @@
+@import '~@angular/material/theming';
+@import './theming/primary.scss';
+
+
+// Define a theme.
+$my-custom-primary: mat-palette($md-colruyt-primary, 500, 500, 800);
+
+$my-custom-accent: mat-palette($mat-yellow, 700, 500, 800);
+
+$my-custom-theme: mat-dark-theme((
+  color: (
+    primary: $my-custom-primary,
+    accent: $my-custom-accent
+  )
+));

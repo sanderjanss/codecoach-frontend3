@@ -1,0 +1,16 @@
+<div *ngIf="coachee">
+  <mat-card>
+    <mat-card-title>{{coachee.firstName}} {{coachee.lastName}}</mat-card-title>
+    <mat-card-subtitle>Coachee Company: {{coachee.company}}</mat-card-subtitle>
+    <mat-card-content class="div">
+      <img *ngIf="coachee?.imageUrl" src="{{coachee.imageUrl}}" alt="{{coachee.firstName}} {{coachee.lastName}}">
+      <img *ngIf="!coachee?.imageUrl" src="assets/dummy/default-profile-icon-24.jpg" alt="{{coachee.firstName}} {{coachee.lastName}}">
+
+    </mat-card-content>
+    <mat-card-actions class="margin-auto">
+      <div >
+      <button routerLink="/coachees/{{coachee.userId}}" mat-raised-button color="primary">More info </button>
+    </div>
+    </mat-card-actions>
+  </mat-card>
+</div>

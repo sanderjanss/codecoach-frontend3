@@ -1,0 +1,50 @@
+<div class="divider"></div>
+
+<div *ngIf="coachDetail">
+  <section class="card-panel grey lighten-5">
+    <h5>Coach Information</h5>
+    <div class="divider"></div>
+    <div class="row">
+      <div class="col l12 m12 s12">
+        <table class="highlight">
+          <tbody>
+            <tr>
+              <td><strong>Introduction</strong></td>
+              <td>{{coachDetail.introduction}}</td>
+            </tr>
+            <tr>
+              <td><strong>Availability</strong></td>
+              <td>{{coachDetail.availableTime}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="card-panel grey lighten-5">
+    <h5>Coaching topics</h5>
+    <div class="divider"></div>
+    <div class="row">
+      <div class="col s12">
+        <table class="highlight">
+          <tbody>
+            <tr *ngFor="let topic of coachDetail.topics">
+              <td><strong>{{topic.topic.name}}</strong></td>
+              <td>
+                <div class="center">
+                  <a class="btn-floating orange" *ngFor="let i of [].constructor(topic.coachKnowledgeLevel)"><i
+                      class="material-icons">stars</i></a>
+                  <a class="btn-floating disabled" *ngFor="let i of [].constructor(7 - topic.coachKnowledgeLevel)"><i
+                      class="material-icons">stars</i></a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</div>

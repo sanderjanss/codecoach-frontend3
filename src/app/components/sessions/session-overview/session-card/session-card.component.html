@@ -1,0 +1,57 @@
+<div *ngIf="session">
+  <mat-card>
+    <mat-card-title>Session: {{session.topic}} on {{ session.date }}</mat-card-title>
+    <mat-card-content class="div">
+      <h2>coach: {{ getCoachName() }}</h2>
+      <h2>coachee: {{ getCoacheeName() }}</h2>
+      <h3>
+        topic: <strong>{{ session.topic }}</strong>
+      </h3>
+
+      <h3>type: {{ session.sessionType }}</h3>
+      <h3>date:  {{ session.date }}</h3>
+      <h3>time: {{session.time}}</h3>
+
+      <h3>remarks:</h3>
+      <p> {{ session.remarks }}</p>
+    </mat-card-content>
+    <mat-card-actions>
+
+        <mat-form-field>
+          <mat-select placeholder="Requested" align="end">
+            <mat-option
+              value="cancel"
+              *ngIf="!isUserTheSessionCoach() && !isArchived()"
+              >Cancel</mat-option
+            >
+            <mat-option
+              value="accepted"
+              *ngIf="isUserTheSessionCoach() && !isArchived()"
+              >Accepted</mat-option
+            >
+            <mat-option
+              value="declined"
+              *ngIf="isUserTheSessionCoach() && !isArchived()"
+              [disabled]="isArchived()"
+              >Declined</mat-option
+            >
+            <mat-option
+              value="archived"
+              *ngIf="isArchived()"
+              [disabled]="isArchived()"
+              >Archived</mat-option
+            >
+          </mat-select>
+          <button
+            routerLink="/sessions/{{ session.sessionId }}"
+            mat-raised-button
+            color="primary"
+            type="submit"
+            class="submit"
+            >
+            update status
+          </button>
+        </mat-form-field>
+    </mat-card-actions>
+  </mat-card>
+</div>

@@ -1,0 +1,11 @@
+.section{
+  padding: 80px;
+}
+
+.container .transparent{
+  background: rgba(0,0,0,0.6);
+}
+
+.container.transparent.background{
+  background: url("../../../assets/youcoach_background1.jpg");
+}

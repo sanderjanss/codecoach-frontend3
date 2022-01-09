@@ -1,0 +1,22 @@
+<button (click)="goBack()" mat-button>Go Back</button>
+<mat-card *ngIf="coachee">
+  <mat-card-title>So {{coachee.firstName}}, you want to become a coach?</mat-card-title>
+  <mat-card-content>
+    <img mat-card-xl-image src="assets\dummy\coaching.jpg" alt="{{coachee.imageUrl}}">
+    <div>
+      <p>After applying your request will be sent to the administrators. Be sure to check your name and email are
+        correct.</p>
+      <mat-list>
+        <mat-list-item>Full Name: {{coachee.firstName}} {{coachee.lastName}}</mat-list-item>
+        <mat-list-item>E-Mail: {{coachee.email}}</mat-list-item>
+        <mat-list-item> </mat-list-item>
+      </mat-list>
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="accent" (click)="requestCoach()">
+      <mat-icon>send</mat-icon>
+      Apply to be a Coach
+    </button>
+  </mat-card-actions>
+</mat-card>

@@ -1,0 +1,74 @@
+<div class="container">
+  <button (click)="goBack()" mat-button>Go Back</button>
+  <mat-drawer-container *ngIf="coachee">
+    <mat-drawer mode="side" opened>
+      <mat-list>
+        <mat-list-item>
+          <a routerLink="/coachees/{{ coachee.userId }}" mat-button
+            >Profile information</a
+          >
+        </mat-list-item>
+        <mat-list-item *ngIf="allowedUser()">
+          <a routerLink="/sessions" mat-button
+            >My Coaching Sessions</a
+          >
+        </mat-list-item>
+        <mat-list-item *ngIf="isCoachee() && !allowedUser()">
+          <a
+          routerLink="/sessions/{{getUserId()}}"
+          mat-button
+          color:accent
+          >Request a Session</a
+          >
+        </mat-list-item>
+        <mat-list-item *ngIf="allowedUser() && !isCoach()">
+          <a routerLink="/coachrequest/{{getUserId()}}" mat-button>
+            Apply for Coach
+          </a>
+        </mat-list-item>
+      </mat-list>
+    </mat-drawer>
+    <mat-drawer-content>
+      <div>
+        <mat-card>
+          <mat-card-content>
+            <mat-card-actions>
+              <button
+                mat-raised-button
+                class="btn-floating"
+                color="primary"
+                routerLink="/coachees/{{coachee.userId}}/edit"
+                *ngIf="allowedUser()"
+              >
+                <i class="material-icons">edit</i>
+              </button>
+            </mat-card-actions>
+            <img
+              *ngIf="coachee?.imageUrl"
+              src="{{ coachee.imageUrl }}"
+              alt="{{ coachee.firstName }} {{ coachee.lastName }}"
+            />
+            <img
+              *ngIf="!coachee?.imageUrl"
+              src="assets/dummy/default-profile-icon-24.jpg"
+              alt="{{ coachee.firstName }} {{ coachee.lastName }}"
+            />
+            <div>
+              <mat-card-title
+                >{{ coachee.firstName }} {{ coachee.lastName }}</mat-card-title
+              >
+              <mat-card-subtitle
+                >Company: {{ coachee.company }}</mat-card-subtitle
+              >
+              <a mat-button color="primary"
+                ><i class="material-icons">mail</i> {{ coachee.email }}
+              </a>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </mat-drawer-content>
+  </mat-drawer-container>
+
+  <app-coach-details *ngIf="coachee?.coachDetails"></app-coach-details>
+</div>

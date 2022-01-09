@@ -1,0 +1,21 @@
+mat-card-title{
+  padding-top: 20px;
+}
+
+mat-card-content{
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  img{
+    padding-right: 80px;
+    display: block;
+    width: 35%;
+
+  }
+
+}
+
+mat-card-actions{
+  display: flex;
+  justify-content: flex-end;
+}

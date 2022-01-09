@@ -1,0 +1,34 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button class="example-icon" aria-label="Home Button" routerLink="/">
+    <mat-icon>home</mat-icon>
+  </button>
+  <span class="title">CodeCoach</span>
+  <span class="spacer"></span>
+
+  <span class="spacer" *ngIf="isLoggedIn()">
+    <button mat-icon-button class="example-icon" aria-label="Coachee Button" routerLink="coaches">
+      <mat-icon>face</mat-icon>
+    </button>
+    <span class="title"> <a routerLink="coaches" class="white-text">Look for Coaches</a></span>
+  </span>
+
+  <div>
+    <span class="spacer" onload="LoadOnce()" *ngIf="!isLoggedIn()">
+      <button mat-raised-button color="accent" routerLink="login">
+        Log In
+      </button>
+      <button routerLink="register" mat-raised-button color="primary">
+        Register
+      </button>
+    </span>
+    <span *ngIf="isLoggedIn()" class="spacer">
+      <button routerLink="coachees/{{this.getID()}}" mat-raised-button color="accent">
+        My Profile
+      </button>
+      <button mat-raised-button color="primary" (click)="logout()" routerLink="home">
+        Log Out
+      </button>
+    </span>
+  </div>
+
+</mat-toolbar>

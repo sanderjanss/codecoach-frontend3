@@ -1,0 +1,149 @@
+<div class="container">
+  <div *ngIf="coachee" class="signup-form">
+    <h2>
+      Hi {{ coachee.firstName }}! You can change your personal information here
+    </h2>
+    <mat-card>
+      <form
+        *ngIf="coachee"
+        [formGroup]="updateCoachee"
+        (ngSubmit)="redirectUserAfterUpdatingDetails()"
+        class="form"
+        fxFill
+        fxLayout="column center center"
+      >
+        <h3 class="orange-text">Personal Details</h3>
+        <mat-form-field>
+          <input
+            formControlName="firstName"
+            class="form-control"
+            [(ngModel)]="coachee.firstName"
+            placeholder="Your First Name"
+            required
+            matInput
+          />
+          <mat-error *ngIf="firstNameIsRequired()"
+            >First name is required</mat-error
+          >
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            formControlName="lastName"
+            placeholder="Your Last Name"
+            required
+            class="form-control"
+            matInput
+            [(ngModel)]="coachee.lastName"
+          />
+          <mat-error *ngIf="lastNameIsRequired()"
+            >Last name is required</mat-error
+          >
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            formControlName="company"
+            class="form-control"
+            matInput
+            placeholder="Your Company"
+            name="company"
+            [(ngModel)]="coachee.company"
+            required
+          />
+          <mat-error *ngIf="companyHasError()">Company is required</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            formControlName="imageUrl"
+            class="form-control"
+            matInput
+            placeholder="imageUrl"
+            name="imageUrl"
+            [(ngModel)]="coachee.imageUrl"
+          />
+        </mat-form-field>
+        <div
+          *ngIf="coachee?.coachDetails"
+          formGroupName="coachDetails"
+          fxFill
+          fxLayout="column center center"
+        >
+          <h3 class="orange-text">Coach Details</h3>
+          <mat-form-field>
+            <input
+              formControlName="introduction"
+              class="form-control"
+              matInput
+              placeholder="Introduction"
+              name="introduction"
+              [(ngModel)]="coachee.coachDetails.introduction"
+            />
+          </mat-form-field>
+          <mat-form-field>
+            <input
+              formControlName="availableTime"
+              class="form-control"
+              matInput
+              placeholder="Availability"
+              name="availableTime"
+              [(ngModel)]="coachee.coachDetails.availableTime"
+            />
+          </mat-form-field>
+          
+          <h3 class="orange-text">Your Topics</h3>
+          <div fxFill fxLayout="column center center" formGroupName="topics">
+            <div formGroupName="topic">
+              <mat-form-field>
+                <mat-label>Topic</mat-label>
+                <input
+                  type="text"
+                  matInput
+                  formControlName="name"
+                  class="form-control"
+                  [matAutocomplete]="auto"
+                />
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option
+                    *ngFor="let topics of coachee.coachDetails.topics"
+                    [value]="topics.topic.name"
+                  >
+                    {{ topics.topic.name }}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </div>
+            <mat-form-field>
+              <input
+                type="number"
+                min="1"
+                max="7"
+                formControlName="coachKnowledgeLevel"
+                class="form-control"
+                matInput
+                placeholder="Knowledge Level"
+                name="coachKnowledgeLevel"
+              />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="buttonflex">
+          <button
+            mat-raised-button
+            color="primary"
+            routerLink="/coachees/{{ coachee.userId }}"
+          >
+            Back
+          </button>
+          <button
+            type="submit"
+            mat-raised-button
+            color="accent"
+            class="submit"
+            [disabled]="formFieldHasError()"
+          >
+            Save Changes
+          </button>
+        </div>
+      </form>
+    </mat-card>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+mat-card-content{
+  display: flex;
+  justify-content: space-between;
+  img, div{
+    padding: 20px;
+  }
+
+}
+
+mat-card-actions{
+  display: flex;
+  justify-content: flex-end;
+}

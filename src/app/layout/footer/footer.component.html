@@ -1,0 +1,30 @@
+<footer class="page-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col l6 s12">
+        <h5 class="white-text">CodeCoach</h5>
+        <p class="white-text text-darken-3">CodeCoach is a peer to peer coaching program between professional
+          programmers</p>
+      </div>
+      <div class="col l3 s12">
+        <h5 class="white-text">Navigation</h5>
+        <ul>
+          <li><a class="white-text" routerLink="/"><i class="tiny material-icons">chevron_right</i>Home</a></li>
+          <li><a class="white-text" routerLink="/about"><i class="tiny material-icons">chevron_right</i>About us</a>
+          </li>
+          <li><a class="white-text" routerLink="/contact"><i class="tiny material-icons">chevron_right</i>Contact</a>
+          </li>
+          <li *ngIf="!isLoggedIn()"><a class="white-text" routerLink="/login"><i class="tiny material-icons">chevron_right</i>Login
+            / Register</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-copyright">
+    <div class="container white-text center-align">
+      Web application proudly created by <a class="yellow-text" href="https://switchfully.com" target="_blank"> <strong>Switchfully</strong></a>
+      students: <span class="white-text">Hans, Jordi, Ralph & Sander</span>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,96 @@
+<div class="session-form container mt-3" *ngIf="coach">
+  <mat-card>
+      <mat-card-title>{{coach.firstName}} {{coach.lastName}}</mat-card-title>
+
+    <mat-card-subtitle>Request a session</mat-card-subtitle>
+    <form
+      [formGroup]="newSession"
+      (ngSubmit)="submit()"
+      class="form"
+      fxFill
+      fxLayout="column center center"
+    >
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Choose a date</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          [min]="minDate"
+          formControlName="date"
+          placeholder="Pick your date: "
+        />
+        <mat-datepicker #picker></mat-datepicker>
+        <button mat-raised-button (click)="picker.open()">Select Date</button>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput
+               name="selected_time_A"
+               [ngxMatTimepicker]="pickerA"
+               [format]="24"
+               placeholder="4:00 PM"
+               formControlName="time"
+               />
+        <mat-icon matSuffix
+                  (click)="pickerA.open()">
+            watch_later
+        </mat-icon>
+    </mat-form-field>
+    <ngx-mat-timepicker #pickerA></ngx-mat-timepicker>
+
+      <h3 class="orange-text">Your Topics</h3>
+          <mat-form-field>
+            <mat-label>Topic</mat-label>
+            <input
+              type="text"
+              matInput
+              formControlName="topic"
+              class="form-control"
+              [matAutocomplete]="auto"
+            />
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option
+                *ngFor="let topics of coach.coachDetails.topics"
+                [value]="topics.topic.name"
+              >
+                {{ topics.topic.name }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Session Location</mat-label>
+        <input
+          type="text"
+          matInput
+          formControlName="sessionType"
+          class="form-control"
+          [matAutocomplete]="sessionType"
+        />
+        <mat-autocomplete #sessionType="matAutocomplete">
+          <mat-option value="Online">
+            ONLINE
+          </mat-option>
+          <mat-option value="Face-To-Face">
+            FACE TO FACE
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Add any remarks</mat-label>
+        <textarea matInput placeholder="Remarks" formControlName="remarks"></textarea>
+      </mat-form-field>
+
+      <button
+        type="submit"
+        mat-raised-button
+        color="accent"
+        class="submit"
+        [disabled]=""
+      >
+        Request Coaching Session
+      </button>
+    </form>
+  </mat-card>
+</div>

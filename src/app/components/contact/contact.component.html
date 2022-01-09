@@ -1,0 +1,32 @@
+<div class="container section">
+  <h2 class="center teal-text lighten-3">Contact CodeCoach</h2>
+  <p class="center light">We at CodeCoach value everyone's questions/opinions/criticisms and we would like for you to always be able to let them know to us directly.
+  By entering the details in the form underneath we will be able to properly read and reply to you in the proper way.</p>
+  <p class="center light">Do allow us to take up to 3 working days to reply to your comment as in today's circumstances the people behind the scenes are very busy to keep everything working
+  to your satisfaction.</p>
+</div>
+<div class="container section">
+  <form [formGroup]="createContact" (ngSubmit)="sendFormAndOk()"
+        class="form" fxFill fxLayout="column center center">
+    <mat-form-field>
+      <input formControlName="fullName" class="form-control"
+             placeholder="Your Full Name" required
+             matInput>
+      <mat-error *ngIf="firstNameIsRequired()">Full Name is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input formControlName="email" required
+             class="form-control" matInput placeholder="Your Email">
+      <mat-error *ngIf="emailIsRequired()">Email is required</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <textarea formControlName="question" required
+             class="form-control" matInput placeholder="Your Question" ></textarea>
+      <mat-error *ngIf="questionIsRequired()">Email is required</mat-error>
+    </mat-form-field>
+
+    <button type="submit" mat-raised-button color="accent" class="submit" [disabled]="formFieldHasError()">Send
+    </button>
+  </form>
+</div>

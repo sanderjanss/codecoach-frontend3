@@ -1,0 +1,57 @@
+<div class="container">
+  <div class="signup-form">
+    <mat-card>
+      <h2>Join CodeCoach</h2>
+
+      <form [formGroup]="registerCoachee"
+            (ngSubmit)="redirectUserAfterRegister()"
+            class="form" fxFill fxLayout="column center center">
+        <mat-form-field>
+          <input formControlName="firstName" class="form-control"
+                 placeholder="Your First Name" required
+                 matInput>
+          <mat-error *ngIf="firstNameIsRequired()">First name is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input formControlName="lastName" required
+                 class="form-control" matInput placeholder="Your Last Name">
+          <mat-error *ngIf="lastNameIsRequired()">Last name is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input formControlName="company" class="form-control"
+                 matInput placeholder="Your Company" name="company">
+          <mat-error *ngIf="companyHasError()">Company is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input formControlName="email" class="form-control"
+                 matInput placeholder="Your Email" email required>
+          <mat-error *ngIf="emailIsRequired()">email is required</mat-error>
+          <mat-error *ngIf="emailIsNotValid() && !emailIsRequired()">email not valid</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input formControlName="password" placeholder="Your Password" class="form-control"
+                 [type]="hide ? 'password' : 'text'" matInput
+                 required minlength="6">
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                  [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-hint>password at least 6 characters</mat-hint>
+          <mat-hint align="end">{{getpasswordLength()}} /6</mat-hint>
+          <mat-error *ngIf="passwordIsTooShort()">password must be at least 6 characters</mat-error>
+          <mat-error *ngIf="passwordIsRequired() && !passwordIsTooShort()">password is required</mat-error>
+        </mat-form-field>
+
+        <button type="submit" mat-raised-button color="accent" class="submit" [disabled]="formFieldHasError()">Become
+          Coachee
+        </button>
+      </form>
+    </mat-card>
+  </div>
+</div>
+
+

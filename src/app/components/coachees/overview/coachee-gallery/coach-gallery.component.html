@@ -1,0 +1,9 @@
+<div class="container">
+  <mat-progress-bar class="loader-container" mode="indeterminate" color="accent" *ngIf="loader.isLoading | async"></mat-progress-bar>
+  <h2 *ngIf="loader.isLoading | async" class="center teal-text">Loading Coaches...</h2>
+  <mat-grid-list cols="4" rowHeight="450px">
+    <mat-grid-tile *ngFor="let coachee of coachees" >
+      <app-coachee-card [coachee]="coachee"></app-coachee-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
