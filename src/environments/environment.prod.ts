@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  backendUrl: 'https://codecoach-col-air-e.herokuapp.com'
+  backendUrl: 'https://codecoach-colruytgroup.herokuapp.com'
 };

@@ -15,7 +15,7 @@
     "@angular-material-components/moment-adapter": "^6.0.0",
     "@angular/animations": "~12.2.0",
     "@angular/cdk": "^12.2.13",
-    "@angular/cli": "~12.2.14",
+    "@angular/cli": "^12.2.14",
     "@angular/common": "~12.2.0",
     "@angular/compiler": "~12.2.0",
     "@angular/core": "~12.2.0",
