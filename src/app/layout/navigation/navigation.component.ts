@@ -31,8 +31,8 @@ export class NavigationComponent implements OnInit {
     this.authentication.logout();
   }
 
-  async isLoggedIn() {
-    return await this.authentication.isLoggedIn();
+   isLoggedIn() {
+    return this.authentication.isLoggedIn();
   }
 
   LoadOnce() {
