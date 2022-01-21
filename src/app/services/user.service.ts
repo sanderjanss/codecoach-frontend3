@@ -26,24 +26,10 @@ export class UserService {
     private _snackBar: MatSnackBar, private authentication: AuthenticationService) {
     }
 
-    
+
   registerUser(user: Users): Observable<Users> {
     return this.http.post<Users>(this.userURL, user, this.httpOptions);
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   updateUser(user:Users,id: string | any): Observable<Users> {
     const url = `${this.userURL}/${id}`;
@@ -98,9 +84,15 @@ export class UserService {
   }
 
 
-  getAllUsers(): Observable<Users[]> {
-    return this.http.get<Users[]>(this.userURL, this.getUserHeader());
+  getAllUsers(topic: string): Observable<Users[]> {
+    let params = {'topic': topic};
+    return this.http.get<Users[]>(this.userURL, {params});
   }
+
+  // getCoaches(topic: string, partialSearch: string): Observable<any> {
+  //   let params = {'topic': topic, 'partialSearch': partialSearch};
+  //   return this.http.get<Users[]>(this._usersUrl, {params});
+  // }
 
   getUserById(id: string | any): Observable<any> {
     const url = `${this.userURL}/${id}`;

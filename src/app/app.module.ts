@@ -31,7 +31,10 @@ import { CoachDetailsComponent } from './components/coach/coach-details/coach-de
 import { AboutComponent } from './components/about/about.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { AuthenticationInterceptor } from './services/authentication/authenticationInterceptor';
-import { SessionOverviewComponent } from './components/sessions/session-overview/session-overview.component';
+import {
+  CoacheeFeedbackDialog, CoachFeedbackDialog, MyCoacheeFeedbackDialog, MyCoachFeedbackDialog,
+  SessionOverviewComponent
+} from './components/sessions/session-overview/session-overview.component';
 import { AddSessionComponent } from './components/sessions/add-session/add-session.component';
 import { SessionCardComponent } from './components/sessions/session-overview/session-card/session-card.component';
 // SERVICES
@@ -56,7 +59,14 @@ import {InterceptorService} from "./loader/interceptor.service";
     ContactComponent,
     SessionOverviewComponent,
     AddSessionComponent,
-    SessionCardComponent
+    SessionCardComponent,
+
+
+    CoacheeFeedbackDialog,
+    CoachFeedbackDialog,
+    MyCoacheeFeedbackDialog,
+    MyCoachFeedbackDialog
+
   ],
   imports: [
     BrowserModule,

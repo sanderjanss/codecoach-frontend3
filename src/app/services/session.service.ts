@@ -6,6 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { AuthenticationService } from './authentication/authentication.service';
+import {Users} from "../entities/users";
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,8 @@ export class SessionService {
 
   }
 
+
+
   addSession(session:Session): Observable<Session>{
     return this.http.post<Session>(`${this.url}/sessions`,session)
   }
@@ -39,5 +42,39 @@ export class SessionService {
       }
     }
     return false;
+  }
+
+  /////////////////////////////////////////////////////////
+
+  getSessionById(id: string | any): Observable<any> {
+    const url = `${this.url}/sessions/${id}`;
+    return this.http.get<Session>(url, id);
+  }
+
+  updateCoachingSessionState(session: Session): any{
+    const updateUrl = `${this.url}/sessions/${session.sessionId}`;
+    const sessionStatus = session.sessionStatus;
+    return this.http.put<any>(updateUrl,sessionStatus).subscribe()
+
+  }
+
+  updateFeedbackFromCoachee(session: Session): any{
+    const updateUrl = `${this.url}/sessions/${session.sessionId}/addfeedback`;
+    console.log(session.feedbackFromCoachee)
+    console.log(session.feedbackFromCoach)
+    console.log(session.sessionId)
+    const feedbackFromCoachee = session.feedbackFromCoachee;
+    console.log(feedbackFromCoachee)
+    return this.http.put<any>(updateUrl,feedbackFromCoachee).subscribe()
+  }
+  updateFeedbackFromCoach(session: Session): any{
+    const updateUrl = `${this.url}/sessions/${session.sessionId}/addfeedback`;
+    console.log(session.feedbackFromCoachee)
+    console.log(session.feedbackFromCoach)
+    console.log(session.sessionId)
+    const feedbackFromCoach = session.feedbackFromCoach;
+    console.log(feedbackFromCoach)
+    return this.http.put<any>(updateUrl,feedbackFromCoach).subscribe()
+
   }
 }

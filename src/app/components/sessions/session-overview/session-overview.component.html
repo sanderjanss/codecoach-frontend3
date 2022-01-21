@@ -1,11 +1,174 @@
-<div class="container">
-  <mat-progress-bar class="loader-container" mode="indeterminate" color="accent" *ngIf="loader.isLoading | async"></mat-progress-bar>
-  <h2 *ngIf="loader.isLoading | async" class="center teal-text">Loading Sessions...</h2>
 
-    <mat-grid-list cols="4" rowHeight="900px">
-      <mat-grid-tile *ngFor="let session of sessions" >
-        <app-session-card [session]="session"></app-session-card>
-      </mat-grid-tile>
-    </mat-grid-list>
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>CodeCoach | My Profile</title>
 
-</div>
+
+  </head>
+  <body>
+
+  <main>
+
+    <div class="row">
+
+      <div class="col s12 m12">
+        <div class="content-container">
+
+          <div class="col s12 m12" *ngIf="requestedSessions">
+            <div class="content-container">
+
+              <section class="card-panel grey lighten-5">
+                <h5>My upcoming sessions</h5>
+                <div class="divider"></div>
+                <div class="row">
+                  <div class="col l12 s12">
+                    <table class="highlight responsive-table">
+                      <thead>
+                      <tr>
+                        <th>Coach</th>
+                        <th>Coachee</th>
+                        <th>Topic</th>
+                        <th>Date</th>
+                        <th>Sessiontype</th>
+                        <th>Session status</th>
+                        <th>Actions</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr *ngIf="requestedSessions.length === 0">No requested sessions.</tr>
+                      <tr *ngFor="let session of requestedSessions">
+                        <td>{{session.coachName}} </td>
+                        <td>{{session.coacheeName}}</td>
+                        <td>{{session.topic}}</td>
+                        <td>{{session.date}}</td>
+                        <td>{{session.sessionType}}</td>
+                        <td>{{session.sessionStatus!}}</td>
+
+                        <td><a *ngIf="session.sessionStatus === 'REQUESTED' && isUserTheSessionCoach(session)"
+                               (click)="updateCoachingSessionStateAccepted(session)"
+                               class="waves-effect waves-light  green lighten-2 btn black-text">Accept<i
+                          class="material-icons right">check</i></a>
+                          <a *ngIf="session.sessionStatus === 'REQUESTED'  && isUserTheSessionCoach(session)"
+                             (click)="updateCoachingSessionStateDeclined(session)"
+                             class="waves-effect waves-light  red lighten-2 btn black-text">Decline<i
+                            class="material-icons right">cancel</i></a>
+                          <a *ngIf="session.sessionStatus === 'ACCEPTED'"
+                             (click)="updateCoachingSessionStateCancel(session)"
+                             class="waves-effect waves-light  yellow lighten-2 btn black-text">Cancel<i
+                            class="material-icons right">cancel</i></a>
+                        </td>
+                      </tr>
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+              </section>
+
+              <section class="card-panel grey lighten-5" *ngIf="awaitingFeedbackSessions">
+                <h5>Waiting for feedback</h5>
+                <div class="divider"></div>
+                <div class="row">
+                  <div class="col l12 s12">
+                    <table class="highlight responsive-table">
+                      <thead>
+                      <tr>
+                        <th>Coach</th>
+                        <th>Coachee</th>
+                        <th>Topic</th>
+                        <th>Date</th>
+                        <th>Sessiontype</th>
+                        <th>Session status</th>
+                        <th>Actions</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr *ngIf="awaitingFeedbackSessions.length === 0">No sessions that require feedback.</tr>
+                      <tr *ngFor="let session of awaitingFeedbackSessions">
+                        <td>{{session.coachName}} </td>
+                        <td>{{session.coacheeName}}</td>
+                        <td>{{session.topic}}</td>
+                        <td>{{session.date}}</td>
+                        <td>{{session.sessionType}}</td>
+                        <td>{{session.sessionStatus!}}</td>
+
+                        <td>
+                          <a *ngIf="isUserCoachOfSession(session) && !session.feedbackFromCoachee" (click)="openCoacheeFeedbackDialog(session)" class="waves-effect waves-light  grey lighten-2 btn black-text">Give coachee feedback<i
+                            class="material-icons right">feedback</i></a>
+
+                          <a *ngIf="isUserCoacheeOfSession(session) && !session.feedbackFromCoach" mat-button (click)="openCoachFeedbackDialog(session)" class="waves-effect waves-light  grey lighten-2 btn black-text">Give coach feedback<i
+                            class="material-icons right">feedback</i></a>
+                        </td>
+                      </tr>
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+
+              </section>
+
+              <section class="card-panel grey lighten-5" *ngIf="archivedSessions">
+                <h5>Archive</h5>
+                <div class="divider"></div>
+                <div class="row">
+                  <div class="col l12 s12">
+                    <table class="highlight responsive-table">
+                      <thead>
+                      <tr>
+                        <th>Coach</th>
+                        <th>Coachee</th>
+                        <th>Topic</th>
+                        <th>Date</th>
+                        <th>Sessiontype</th>
+                        <th>Session status</th>
+                        <th>Actions</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr *ngIf="archivedSessions.length === 0">No archived sessions found.</tr>
+                      <tr *ngFor="let session of archivedSessions">
+                        <td>{{session.coachName}} </td>
+                        <td>{{session.coacheeName}}</td>
+                        <td>{{session.topic}}</td>
+                        <td>{{session.date}}</td>
+                        <td>{{session.sessionType}}</td>
+                        <td>{{session.sessionStatus!}}
+
+                        <td>
+                          <a *ngIf="isUserCoacheeOfSession(session) && session.feedbackFromCoachee" mat-button (click)="openMyCoacheeFeedbackDialog(session)" class="waves-effect waves-light  grey lighten-2 btn black-text">Show Feedback<i
+                            class="material-icons right">comment</i></a>
+
+                          <a *ngIf="isUserCoachOfSession(session) && session.feedbackFromCoach" mat-button (click)="openMyCoachFeedbackDialog(session)" class="waves-effect waves-light  grey lighten-2 btn black-text">Show Feedback<i
+                            class="material-icons right">comment</i></a>
+
+                        </td>
+                      </tr>
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+              </section>
+
+        </div>
+      </div>
+    </div>
+      </div>
+    </div>
+  </main>
+
+  <!--  Scripts-->
+  <script src="js/jquery-3.5.0.min.js"></script>
+  <script src="js/materialize.js"></script>
+  <script src="js/init.js"></script>
+
+  </body>
+  </html>
+
