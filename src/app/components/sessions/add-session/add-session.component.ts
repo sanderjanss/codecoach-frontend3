@@ -50,6 +50,7 @@ export class AddSessionComponent implements OnInit {
       });
 
     this.minDate = this.intializeTime();
+    
   }
 
   convertSessionTypeToEnum(sessionType: string) {
@@ -83,7 +84,7 @@ export class AddSessionComponent implements OnInit {
     this.sessionService.addSession(session).subscribe(
       (data) => {
         this.displaySnackbar('Session added successfully');
-        this.router.navigate(['/coach/sessions']);
+        this.router.navigate([`sessions/`]);
       },
       (error) => {
         this.displaySnackbar('Error adding session');

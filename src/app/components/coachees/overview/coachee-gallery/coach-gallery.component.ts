@@ -49,6 +49,7 @@ export class CoachGalleryComponent implements OnInit {
     this.getCoachees();
 //////////////////////////////////////////////////////
   }
+  
 
   getCoachees(){
     this.userService.getAllUsers(this.topic).subscribe(coachees => this.coachees = coachees);

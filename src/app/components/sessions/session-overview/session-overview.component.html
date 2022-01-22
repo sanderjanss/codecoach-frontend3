@@ -69,7 +69,7 @@
 
               </section>
 
-              <section class="card-panel grey lighten-5" *ngIf="awaitingFeedbackSessions">
+              <section class="card-panel grey lighten-5" *ngIf="awaitingFeedbackSessions" >
                 <h5>Waiting for feedback</h5>
                 <div class="divider"></div>
                 <div class="row">
@@ -97,7 +97,7 @@
                         <td>{{session.sessionStatus!}}</td>
 
                         <td>
-                          <a *ngIf="isUserCoachOfSession(session) && !session.feedbackFromCoachee" (click)="openCoacheeFeedbackDialog(session)" class="waves-effect waves-light  grey lighten-2 btn black-text">Give coachee feedback<i
+                          <a *ngIf="isUserCoachOfSession(session) && !session.feedbackFromCoachee " (click)="openCoacheeFeedbackDialog(session)" class="waves-effect waves-light  grey lighten-2 btn black-text">Give coachee feedback<i
                             class="material-icons right">feedback</i></a>
 
                           <a *ngIf="isUserCoacheeOfSession(session) && !session.feedbackFromCoach" mat-button (click)="openCoachFeedbackDialog(session)" class="waves-effect waves-light  grey lighten-2 btn black-text">Give coach feedback<i
@@ -141,10 +141,10 @@
                         <td>{{session.sessionStatus!}}
 
                         <td>
-                          <a *ngIf="isUserCoacheeOfSession(session) && session.feedbackFromCoachee" mat-button (click)="openMyCoacheeFeedbackDialog(session)" class="waves-effect waves-light  grey lighten-2 btn black-text">Show Feedback<i
+                          <a *ngIf="isUserCoacheeOfSession(session) && session.feedbackFromCoachee" mat-button (click)="openMyCoacheeFeedbackDialog(session)" class="waves-effect waves-light  grey lighten-2 btn black-text">Show feedback from coachee<i
                             class="material-icons right">comment</i></a>
 
-                          <a *ngIf="isUserCoachOfSession(session) && session.feedbackFromCoach" mat-button (click)="openMyCoachFeedbackDialog(session)" class="waves-effect waves-light  grey lighten-2 btn black-text">Show Feedback<i
+                          <a *ngIf="isUserCoachOfSession(session) && session.feedbackFromCoach" mat-button (click)="openMyCoachFeedbackDialog(session)" class="waves-effect waves-light  grey lighten-2 btn black-text">Show Feedback from coach<i
                             class="material-icons right">comment</i></a>
 
                         </td>
