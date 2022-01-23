@@ -20,6 +20,7 @@ export class SessionService {
   };
   private url = `${environment.backendUrl}`;
 
+
   constructor(private http: HttpClient,private router: Router,
     private _snackBar: MatSnackBar, private authentication: AuthenticationService){
 
@@ -74,21 +75,30 @@ export class SessionService {
 
   updateFeedbackFromCoachee(session: Session): any{
     const updateUrl = `${this.url}/sessions/${session.sessionId}/addfeedback`;
-    console.log(session.feedbackFromCoachee)
-    console.log(session.feedbackFromCoach)
-    console.log(session.sessionId)
     const feedbackFromCoachee = session.feedbackFromCoachee;
-    console.log(feedbackFromCoachee)
-    return this.http.put<any>(updateUrl,feedbackFromCoachee).subscribe()
+    return this.http.put<any>(updateUrl,feedbackFromCoachee).subscribe(
+      (data) => {
+        this.displaySnackbar('Feedback added succesfully');
+      },
+      (error) => {
+        this.displaySnackbar('Error adding feedback');
+      }
+    );
   }
   updateFeedbackFromCoach(session: Session): any{
     const updateUrl = `${this.url}/sessions/${session.sessionId}/addfeedback`;
-    console.log(session.feedbackFromCoachee)
-    console.log(session.feedbackFromCoach)
-    console.log(session.sessionId)
     const feedbackFromCoach = session.feedbackFromCoach;
-    console.log(feedbackFromCoach)
-    return this.http.put<any>(updateUrl,feedbackFromCoach).subscribe()
-
+    return this.http.put<any>(updateUrl,feedbackFromCoach).subscribe(
+      (data) => {
+        this.displaySnackbar('Feedback added succesfully');
+      },
+      (error) => {
+        this.displaySnackbar('Error adding feedback');
+      }
+    );
+  }
+  displaySnackbar(message: string) {
+    this._snackBar.open(message, 'close', { duration: 2000 });
   }
 }
+

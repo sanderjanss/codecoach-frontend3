@@ -19,42 +19,29 @@ export class CoachGalleryComponent implements OnInit {
               private fb: FormBuilder,
               private topicService: TopicService) { }
 
-///////////////////////////////////////////////
-
   coaches: Users[] = [];
   topic!: string;
   partialSearch!: string;
   topics: Array<Topicname> = [];
   searchForm!: FormGroup;
-  searchQuery!: any;
   defaultImg!: string;
-  public searchText: string = '';
-
-////////////////////////////////////////////////////
 
   ngOnInit(): void {
-
-
-////////////////////////////////////////////////////
 
     this.topic = '';
     this.partialSearch = '';
 
     this.searchForm = this.fb.group({
       topics: [''],
-      searchQuery: ['']
     });
     this.defaultImg = "assets/images/default-profile-pic.png";
     this.topicService.getTopics().subscribe(topics => this.topics = topics);
     this.getCoachees();
-//////////////////////////////////////////////////////
   }
-  
+
 
   getCoachees(){
     this.userService.getAllUsers(this.topic).subscribe(coachees => this.coachees = coachees);
-    // this.coachService.getCoaches(this.topic, this.partialSearch)
-    //   .subscribe(coaches => this.coaches = coaches);
   }
 
   searchCoach(key: string):void{
@@ -71,16 +58,12 @@ export class CoachGalleryComponent implements OnInit {
     this.coachees=results;
   }
 
-//////////////////////////////////////////////////////
 
   submit() {
     this.topic = this.searchForm.value['topics'];
-    this.partialSearch = this.searchForm.value['searchQuery'];
     this.getCoachees();
 
   }
 
-
-//////////////////////////////////////////////////////
 
 }

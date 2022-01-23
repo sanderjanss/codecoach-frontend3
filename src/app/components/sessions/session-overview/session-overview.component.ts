@@ -90,13 +90,6 @@ export class SessionOverviewComponent implements OnInit {
   }
 
 
-
-
-
-/////////////////////////////////////////////////
-
-
-
   isUserCoacheeOfSession(session: Session): boolean {
     return this.authenticationService.getUserId() === session.coacheeId;
   }
@@ -104,11 +97,6 @@ export class SessionOverviewComponent implements OnInit {
   isUserCoachOfSession(session: Session): boolean {
     return this.authenticationService.getUserId() === session.coachId;
   }
-
-  // isLoggedInUserProfile(): boolean {
-  //   return this.user.id === this.authenticationService.getUserId();
-  // }
-
 
 
   openCoacheeFeedbackDialog(session: Session) {
@@ -160,6 +148,7 @@ export class SessionOverviewComponent implements OnInit {
         'feedbackFromCoachee': session.feedbackFromCoachee
       },
     });
+
   }
 
   openMyCoachFeedbackDialog(session: Session) {
@@ -175,8 +164,6 @@ export class SessionOverviewComponent implements OnInit {
   }
 
 }
-
-
 
 @Component({
   selector: 'dialog-data-example-dialog',
@@ -220,6 +207,7 @@ export class CoachFeedbackDialog {
     console.log("feedback for coach")
     this.data.feedbackFromCoachee = this.coachFeedbackForm.value.feedbackFromCoachee
     this.sessionService.updateFeedbackFromCoachee(this.data)
+
   }
 
 }
