@@ -56,11 +56,15 @@
                              class="waves-effect waves-light  red lighten-2 btn black-text">Decline<i
                             class="material-icons right">cancel</i></a>
                           <a *ngIf="session.sessionStatus === 'REQUESTED'  && isUserTheSessionCoachee(session)"
-                             (click)="updateCoachingSessionStateCancel(session)"
+                             (click)="updateCoachingSessionStateCancelAsCoachee(session)"
                              class="waves-effect waves-light  yellow lighten-2 btn black-text">Cancel<i
                             class="material-icons right">cancel</i></a>
-                          <a *ngIf="session.sessionStatus === 'ACCEPTED'"
-                             (click)="updateCoachingSessionStateCancel(session)"
+                          <a *ngIf="session.sessionStatus === 'ACCEPTED' && isUserTheSessionCoach(session)"
+                             (click)="updateCoachingSessionStateCancelAsCoach(session)"
+                             class="waves-effect waves-light  yellow lighten-2 btn black-text">Cancel<i
+                            class="material-icons right">cancel</i></a>
+                          <a *ngIf="session.sessionStatus === 'ACCEPTED' && isUserTheSessionCoachee(session)"
+                             (click)="updateCoachingSessionStateCancelAsCoachee(session)"
                              class="waves-effect waves-light  yellow lighten-2 btn black-text">Cancel<i
                             class="material-icons right">cancel</i></a>
                         </td>

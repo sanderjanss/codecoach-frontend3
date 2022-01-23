@@ -67,8 +67,12 @@ export class SessionOverviewComponent implements OnInit {
     this.sessionService.updateCoachingSessionState(session);
   }
 
-  updateCoachingSessionStateCancel(session:Session):void{
+  updateCoachingSessionStateCancelAsCoachee(session:Session):void{
     session.sessionStatus="CANCELLED_BY_COACHEE";
+    this.sessionService.updateCoachingSessionState(session)
+  }
+  updateCoachingSessionStateCancelAsCoach(session:Session):void{
+    session.sessionStatus="CANCELLED_BY_COACH";
     this.sessionService.updateCoachingSessionState(session)
   }
   isUserTheSessionCoach(session:Session): boolean {
