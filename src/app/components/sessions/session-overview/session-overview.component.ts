@@ -78,13 +78,7 @@ export class SessionOverviewComponent implements OnInit {
     return false;
   }
 
-  dateIsInTheFuture(session:Session){
-return session.date >new Date().toDateString();
-  }
 
-  dateIsInthePast(session:Session){
-    return session.date <new Date().toDateString();
-  }
 
 
 
