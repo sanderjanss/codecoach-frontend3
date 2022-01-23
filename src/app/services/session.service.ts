@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { AuthenticationService } from './authentication/authentication.service';
 import {Users} from "../entities/users";
-import { Feedback } from '../entities/feedback';
+// import { Feedback } from '../entities/feedback';
 
 @Injectable({
   providedIn: 'root'
@@ -26,11 +26,11 @@ export class SessionService {
   }
 
 
-  getFeedback(session: Session){
-    const geturl = `${this.url}/sessions/${session.sessionId}/getfeedback`;
-    
-     return this.http.get<Feedback>(geturl);
-  }
+  // getFeedback(session: Session){
+  //   const geturl = `${this.url}/sessions/${session.sessionId}/getfeedback`;
+  //
+  //    return this.http.get<Feedback>(geturl);
+  // }
 
   addSession(session:Session): Observable<Session>{
     return this.http.post<Session>(`${this.url}/sessions`,session)
@@ -44,6 +44,14 @@ export class SessionService {
   isUserTheSessionCoach(session:Session): boolean{
     if(session){
       if(session.coachId === this.authentication.getUserId()){
+        return true;
+      }
+    }
+    return false;
+  }
+  isUserTheSessionCoachee(session:Session): boolean{
+    if(session){
+      if(session.coacheeId === this.authentication.getUserId()){
         return true;
       }
     }

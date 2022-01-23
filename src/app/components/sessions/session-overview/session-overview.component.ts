@@ -48,8 +48,8 @@ export class SessionOverviewComponent implements OnInit {
         this.requestedSessions = response.filter(session => (session.sessionStatus!.toString() === 'REQUESTED' || session.sessionStatus!.toString() === 'ACCEPTED'));
 
         this.awaitingFeedbackSessions = response.filter(session => session.sessionStatus!.toString() === 'DONE_WAITING_FOR_FEEDBACK');
-        this.archivedSessions = response.filter(session => session.sessionStatus!.toString() === 'FINISHED' || session.sessionStatus!.toString() === 'CANCELED_BY_COACH' ||
-          session.sessionStatus!.toString() === 'CANCELED_BY_COACHEE' || session.sessionStatus!.toString() === 'DECLINED');
+        this.archivedSessions = response.filter(session => session.sessionStatus!.toString() === 'FINISHED' || session.sessionStatus!.toString() === 'CANCELLED_BY_COACH' ||
+          session.sessionStatus!.toString() === 'CANCELLED_BY_COACHEE' || session.sessionStatus!.toString() === 'DECLINED');
 
       }
     )
@@ -74,6 +74,13 @@ export class SessionOverviewComponent implements OnInit {
   isUserTheSessionCoach(session:Session): boolean {
     if (session) {
       return this.sessionService.isUserTheSessionCoach(session);
+    }
+    return false;
+  }
+
+  isUserTheSessionCoachee(session:Session): boolean {
+    if (session) {
+      return this.sessionService.isUserTheSessionCoachee(session);
     }
     return false;
   }
@@ -143,10 +150,10 @@ export class SessionOverviewComponent implements OnInit {
     this.dialog.open(MyCoacheeFeedbackDialog, {
       minWidth: 500,
       data: {
-        'subject': session.topic,
+        'topic': session.topic,
         'coacheeName': session.coacheeName,
         'coachName': session.coachName,
-        'coacheeFeedback': session.feedbackFromCoachee
+        'feedbackFromCoachee': session.feedbackFromCoachee
       },
     });
   }
@@ -155,10 +162,10 @@ export class SessionOverviewComponent implements OnInit {
     this.dialog.open(MyCoachFeedbackDialog, {
       minWidth: 500,
       data: {
-        'subject': session.topic,
+        'topic': session.topic,
         'coacheeName': session.coacheeName,
         'coachName': session.coachName,
-        'coachFeedback': session.feedbackFromCoach
+        'feedbackFromCoach': session.feedbackFromCoach
       },
     });
   }
@@ -186,7 +193,6 @@ export class CoacheeFeedbackDialog {
   save() {
     console.log("feedback for coachee")
     this.data.feedbackFromCoach = this.coacheeFeedbackForm.value.feedbackFromCoach
-    console.log(this.data.feedbackFromCoach)
     this.sessionService.updateFeedbackFromCoach(this.data)
   }
 }
@@ -203,16 +209,12 @@ export class CoachFeedbackDialog {
 );
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: Session, private sessionService: SessionService, private formBuilder: FormBuilder) {
-    this.coachFeedbackForm = new FormGroup({
-        feedbackFromCoachee: new FormControl('', [Validators.required])
-      }
-    )
+
   }
 
   save() {
     console.log("feedback for coach")
     this.data.feedbackFromCoachee = this.coachFeedbackForm.value.feedbackFromCoachee
-    console.log(this.data.feedbackFromCoachee)
     this.sessionService.updateFeedbackFromCoachee(this.data)
   }
 
@@ -225,8 +227,7 @@ export class CoachFeedbackDialog {
 export class MyCoacheeFeedbackDialog {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: Session, public sessionService: SessionService) {
-    console.log(data.feedbackFromCoach)
-    console.log(data.feedbackFromCoachee)
+
   }
 
 }
@@ -238,9 +239,6 @@ export class MyCoacheeFeedbackDialog {
 export class MyCoachFeedbackDialog {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: Session) {
-    console.log(data.feedbackFromCoach)
-    console.log(data.feedbackFromCoachee)
-    console.log(data.sessionId)
 
   }
 }

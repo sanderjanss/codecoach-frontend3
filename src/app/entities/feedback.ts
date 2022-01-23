@@ -1,5 +1,5 @@
 export interface Feedback{
-    feedbackId: number
+    // feedbackId: number
 feedbackFromCoach: String;
 feedbackFromCoachee: String;
 }

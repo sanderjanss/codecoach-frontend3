@@ -1,7 +1,7 @@
-import { Feedback } from "./feedback";
+// import { Feedback } from "./feedback";
 
 export interface Session{
-  session: any;
+
   sessionId:string,
   coachId:  string,
   coachName: string,
@@ -15,5 +15,5 @@ export interface Session{
   sessionStatus:string,
   feedbackFromCoach: String;
   feedbackFromCoachee: String;
-  feedback:Feedback;
+
 }
